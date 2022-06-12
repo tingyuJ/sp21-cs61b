@@ -114,11 +114,74 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
+        board.setViewingPerspective(side);
+
+        //Check one column at a time
+        for(int c = 0; c < board.size(); c++){
+            //iterate from the top row
+            for(int r = board.size()-1; r >= 0; r--){
+                Tile currentTile = board.tile(c, r);
+                Tile nextOneBelow = nextOneBelow(c, r);
+
+                //if there's nothing below. Nothing needs to be done.
+                if(nextOneBelow == null){
+                    break;
+                }
+
+                //if it is originally empty
+                if(currentTile == null){
+                    //move the next one below here.
+                    board.move(c, r, nextOneBelow);
+                    changed = true;
+
+                    //reset the tiles
+                    currentTile = board.tile(c, r);
+                    nextOneBelow = nextOneBelow(c, r);
+                    if(nextOneBelow == null){
+                        break;
+                    }
+                }
+
+                //not empty, check if the values are the same with the next one below
+                if(currentTile.value() == nextOneBelow.value()){
+                    //merge
+                    boolean merged = board.move(c, r,nextOneBelow);
+                    if(merged){
+                        score += board.tile(c, r).value();
+                    }
+                    changed = true;
+                    continue;
+                }
+
+                //The next one below's value not the same, move to the row one row below the current row.
+                board.move(c, r - 1, nextOneBelow);
+                changed = true;
+
+            }
+        }
+
+        board.setViewingPerspective(Side.NORTH);
+
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
+    }
+
+    /** Check the next tile below the current tile.
+     * @param col
+     * @param row
+     * @return the text tile below or null if there's no more.
+     */
+    public Tile nextOneBelow(int col, int row){
+        for(int r = row-1; r >= 0; r--){
+            Tile nextTile = this.board.tile(col, r);
+            if(nextTile != null){
+                return nextTile;
+            }
+        }
+        return null;
     }
 
     /** Checks if the game is over and sets the gameOver variable
@@ -137,7 +200,13 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for(int i = 0; i < b.size(); i++){
+            for(int j = 0; j < b.size(); j++){
+                if(b.tile(i,j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,8 +216,18 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        boolean exists = false;
+        for(int i = 0; i < b.size(); i++){
+            for(int j = 0; j < b.size(); j++){
+                Tile tile = b.tile(i,j);
+                if(tile != null){
+                    if(tile.value() == MAX_PIECE){
+                        exists = true;
+                    }
+                }
+            }
+        }
+        return exists;
     }
 
     /**
@@ -158,8 +237,44 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        if(emptySpaceExists(b)){
+            return true;
+        }
+
+        boolean hasSameValue = false;
+        for(int i = 0; i < b.size(); i++){
+            for(int j = 0; j < b.size(); j++){
+                Tile tile = b.tile(i,j);
+                int value = tile.value();
+                int col = tile.col();
+                int row = tile.row();
+                if(col != 0){
+                    //if it's not on the left most column, check the tile on the left
+                    if(b.tile(i-1, j).value() == value){
+                        hasSameValue = true;
+                    }
+                }
+                if(col != 3){
+                    //if it's not on the right most column, check the tile on the right
+                    if(b.tile(i+1, j).value() == value){
+                        hasSameValue = true;
+                    }
+                }
+                if(row != 0){
+                    //if it's not on the bottom row, check the tile below
+                    if(b.tile(i, j-1).value() == value){
+                        hasSameValue = true;
+                    }
+                }
+                if(row != 3){
+                    //if it's not on the top row, check the tile on top
+                    if(b.tile(i, j+1).value() == value){
+                        hasSameValue = true;
+                    }
+                }
+            }
+        }
+        return hasSameValue;
     }
 
 
