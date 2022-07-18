@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<T> {
     public class Node {
         private Node prev;
@@ -15,14 +17,14 @@ public class LinkedListDeque<T> {
     private Node sentB;
     private int size;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         sentF = new Node(null, null, null);
         sentB = new Node(sentF, null, null);
         sentF.next = sentB;
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque other){
+    public LinkedListDeque(LinkedListDeque other) {
         sentF = new Node(null, null, null);
         sentB = new Node(sentF, null, null);
         sentF.next = sentB;
@@ -40,14 +42,14 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public void addFirst(T item){
+    public void addFirst(T item) {
         Node next = sentF.next;
         sentF.next = new Node(sentF, item, next);
         next.prev = sentF.next;
         size++;
     }
 
-    public void addLast(T item){
+    public void addLast(T item) {
         Node prev = sentB.prev;
         sentB.prev = new Node(prev, item, sentB);
         prev.next = sentB.prev;
@@ -62,17 +64,17 @@ public class LinkedListDeque<T> {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         Node cur = sentF.next;
-        while(cur != sentB){
+        while (cur != sentB) {
             System.out.print(cur.value + " ");
             cur = cur.next;
         }
         System.out.println();
     }
 
-    public T removeFirst(){
-        if(size == 0){
+    public T removeFirst() {
+        if (size == 0) {
             return null;
         }
         Node item = sentF.next;
@@ -82,8 +84,8 @@ public class LinkedListDeque<T> {
         return item.value;
     }
 
-    public T removeLast(){
-        if(size == 0){
+    public T removeLast() {
+        if (size == 0) {
             return null;
         }
         Node item = sentB.prev;
@@ -93,33 +95,76 @@ public class LinkedListDeque<T> {
         return item.value;
     }
 
-    public T get(int index){
-        if(index > size-1){
+    public T get(int index) {
+        if (index > size-1) {
             return null;
         }
         Node cur = sentF.next;
-        for(int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
         return cur.value;
     }
 
-    //TODO
-    public T getRecursive(int index){
-        if(index > size-1){
+    public T getRecursive(int index) {
+        if (index < 0 || index > size-1) {
             return null;
         }
-        Node p = sentF.next;
-        if(index == 0){
-            return p.value;
-        }
-        Node tmp = sentF.next;
-        return getRecursive(getRecursiveHelper(index-1, tmp));
+        LinkedListDeque copy = new LinkedListDeque(this);
+        return (T) copy.getRecursiveHelper(index);
     }
 
-    private int getRecursiveHelper(int i, Node cur){
-        cur = cur.next;
-        return i;
+    private T getRecursiveHelper(int index) {
+        if (index == 0) {
+            return sentF.next.value;
+        } else {
+            removeFirst();
+            return getRecursiveHelper(index - 1);
+        }
+    }
+
+    private class LinkedListDequeIterator implements Iterator<T> {
+        private Node p;
+
+        LinkedListDequeIterator() {
+            p = sentF.next;
+        }
+
+        public boolean hasNext() {
+            return p == sentF;
+        }
+
+        public T next() {
+            T item = p.value;
+            p = p.next;
+            return item;
+        }
+    }
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof LinkedListDeque)) {
+            return false;
+        }
+        LinkedListDeque<?> lld = (LinkedListDeque<?>) o;
+        if (lld.size() != size) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (lld.get(i) != get(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args){
