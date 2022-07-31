@@ -3,6 +3,8 @@ package deque;
 import java.util.Comparator;
 import java.util.Iterator;
 
+
+//https://github.com/exuanbo/cs61b-sp21/tree/main/proj1/deque
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private Comparator<T> comparator;
 

@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
@@ -17,16 +17,17 @@ public class ArrayDeque<T> {
 
     public ArrayDeque(ArrayDeque other) {
         items = (T[]) new Object[other.items.length];
-        System.arraycopy(other.items,0, items, 0, other.items.length);
+        System.arraycopy(other.items, 0, items, 0, other.items.length);
         nextFirst = other.nextFirst;
         nextLast = other.nextLast;
         size = other.size;
     }
 
+    @Override
     public void addFirst(T item) {
         items[nextFirst] = item;
-        nextFirst --;
-        size ++;
+        nextFirst--;
+        size++;
         if (nextFirst == - 1) { // reaches the start of the array
             nextFirst = items.length - 1;
         }
@@ -37,14 +38,15 @@ public class ArrayDeque<T> {
         }
     }
 
+    @Override
     public void addLast(T item) {
         items[nextLast] = item;
-        nextLast ++;
-        size ++;
-        if(nextLast == items.length) { // reaches the end of the array
+        nextLast++;
+        size++;
+        if (nextLast == items.length) { // reaches the end of the array
             nextLast = 0;
         }
-        if(nextLast == nextFirst) {
+        if (nextLast == nextFirst) {
             //resize items
             System.out.println("resize");
             items = resize(items);
@@ -71,23 +73,26 @@ public class ArrayDeque<T> {
         return newArr;
     }
 
-    public boolean isEmpty(){
-        if (nextLast == 0){
-            return nextFirst == items.length - 1;
-        }
-        return nextLast == nextFirst + 1;
-    }
+//    @Override
+//    public boolean isEmpty() {
+//        if (nextLast == 0) {
+//            return nextFirst == items.length - 1;
+//        }
+//        return nextLast == nextFirst + 1;
+//    }
 
-    public int size(){
+    @Override
+    public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         if (nextFirst > nextLast) {
-            for(int i = nextFirst + 1; i < items.length; i ++) {
+            for (int i = nextFirst + 1; i < items.length; i++) {
                 System.out.print(items[i] + " ");
             }
-            for (int i = 0; i < nextLast; i ++) {
+            for (int i = 0; i < nextLast; i++) {
                 System.out.print(items[i] + " ");
             }
         } else {
@@ -98,28 +103,30 @@ public class ArrayDeque<T> {
         System.out.println();
     }
 
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
         }
-        nextFirst ++;
+        nextFirst++;
         if (nextFirst == items.length) {
             nextFirst = 0;
         }
         T i = items[nextFirst];
         items[nextFirst] = null;
-        size  -- ;
-        if (items.length >= 16 && size < items.length / 4){
+        size--;
+        if (items.length >= 16 && size < items.length / 4) {
             items = downsize(items);
         }
         return i;
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
         }
-        nextLast --;
+        nextLast--;
         if (nextLast == - 1) {
             nextLast = items.length - 1;
         }
@@ -133,7 +140,7 @@ public class ArrayDeque<T> {
     }
 
     private T[] downsize(T[] items) {
-        T[] newArr = (T[])new Object[items.length / 2];
+        T[] newArr = (T[]) new Object[items.length / 2];
 
         if (nextLast > nextFirst) {
             //[ , , , F, 1, 2, 3, L, , ]
@@ -149,6 +156,7 @@ public class ArrayDeque<T> {
         return newArr;
     }
 
+    @Override
     public T get(int index) {
         if (index > size - 1) {
             return null;
@@ -214,7 +222,7 @@ public class ArrayDeque<T> {
         for (int i = 0; i < 980; i++) {
             ad.removeLast();
         }
-        var s= ad.size();
+        var s = ad.size();
         var e = ad.isEmpty();
         ad.printDeque();
 
