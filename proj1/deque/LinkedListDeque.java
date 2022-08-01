@@ -161,6 +161,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (o == null) {
             return false;
         }
+        if (o == this) {
+            return true;
+        }
         if (!(o instanceof LinkedListDeque)) {
             return false;
         }
@@ -171,10 +174,34 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
         for (int i = 0; i < size; i++) {
 
-            if (!lld.get(i).equals(get(i))){
+            if (!lld.get(i).equals(get(i))) {
+//            if (lld.get(i) != get(i)) {
                 return false;
             }
         }
         return true;
     }
+
+//    public static void main(String[] args) {
+//        LinkedListDeque lld = new LinkedListDeque();
+//        var nf = lld.removeFirst();
+//        var nl = lld.removeLast();
+//        System.out.println(lld.isEmpty());
+//        System.out.println(lld.size());
+//        lld.addFirst(1);
+//        lld.printDeque();
+//        lld.addLast(2);
+//        lld.printDeque();
+//        lld.addLast(3);
+//        lld.printDeque();
+//        lld.addFirst(0);
+//        lld.printDeque();
+//        var zero = lld.get(0);
+//        var two = lld.get(2);
+//        var three = lld.get(3);
+//
+//        System.out.println(lld.isEmpty());
+//        System.out.println(lld.size());
+//
+//    }
 }
