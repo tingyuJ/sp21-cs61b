@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
@@ -192,20 +192,10 @@ public class ArrayDeque<T> implements Deque<T> {
         return new ArrayDequeIterator();
     }
 
-    // Autograder said:
-    // The following interfaces are missing:
-    //  *  Iterable<T>
-    abstract class ArrayDequeIterable implements Iterable<T> {
-
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
-        }
-        if (o == this) {
-            return true;
         }
         if (!(o instanceof ArrayDeque)) {
             return false;
@@ -216,75 +206,9 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         for (int i = 0; i < size; i++) {
             if (!ad.get(i).equals(get(i))){
-//            if (ad.get(i) != get(i)) {
                 return false;
             }
         }
         return true;
     }
-
-//    public static void main(String[] args) {
-//        ArrayDeque<Integer> ad = new ArrayDeque<>();
-//        for (int i = 0; i < 1000; i++) {
-//            ad.addLast(i);
-//        }
-//        for (int i = 0; i < 980; i++) {
-//            ad.removeLast();
-//        }
-//        var s = ad.size();
-//        var e = ad.isEmpty();
-//        ad.printDeque();
-//
-//        var copy = new ArrayDeque<Integer>(ad);
-//        for (int i = 0; i < 10; i++) {
-//            copy.removeLast();
-//        }
-
-        /*
-        var a = ad.isEmpty();
-        ad.addLast(5);
-        ad.addLast(6);
-        ad.addFirst(7);
-        ad.addFirst(8);
-//        var s4 = ad.size();
-        var a8 = ad.removeFirst();
-//        var s3 = ad.size();
-        var a6 = ad.removeFirst();
-        ad.printDeque();
-//        var s2 = ad.size();
-        ad.addLast(9);
-        ad.addLast(10);
-        ad.addLast(9);
-        ad.addLast(10);
-//        ad.addLast(9);
-        var s7 = ad.size();
-        var q1 = ad.get(3);
-        var q2 = ad.get(5);
-//        var q3 = ad.get(7);
-
-        ad.printDeque();
-
-//        ad.removeFirst();
-//        ad.removeFirst();
-//        ad.removeFirst();
-//        ad.removeFirst();
-        ad.printDeque();
-
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addLast(9);
-        ad.addFirst(1);
-        ad.addFirst(1);
-        ad.addFirst(1);
-
-        var s= ad.size();
-        var e = ad.isEmpty();
-         */
-
-//    }
 }

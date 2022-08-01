@@ -150,19 +150,19 @@ public class LinkedListDequeTest {
         assertEquals(expected.size(), lld1.size());
     }
 
-    @Test
-    public void otherAL(){
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-        for (int i = 0; i < 4; i++) {
-            lld1.addLast(i);
-        }
-
-        LinkedListDeque<Integer> copy = new LinkedListDeque<Integer>(lld1);
-        for (int i = 0; i < 4; i++) {
-            lld1.addLast(i);
-        }
-
-        assertEquals(8, lld1.size());
-        assertEquals(4, copy.size());
-    }
+//    @Test
+//    public void otherAL(){
+//        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+//        for (int i = 0; i < 4; i++) {
+//            lld1.addLast(i);
+//        }
+//
+//        LinkedListDeque<Integer> copy = new LinkedListDeque<Integer>(lld1);
+//        for (int i = 0; i < 4; i++) {
+//            lld1.addLast(i);
+//        }
+//
+//        assertEquals(8, lld1.size());
+//        assertEquals(4, copy.size());
+//    }
 }
