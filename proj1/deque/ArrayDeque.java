@@ -28,12 +28,11 @@ public class ArrayDeque<T> implements Deque<T> {
         items[nextFirst] = item;
         nextFirst--;
         size++;
-        if (nextFirst == - 1) { // reaches the start of the array
+        if (nextFirst == -1) { // reaches the start of the array
             nextFirst = items.length - 1;
         }
         if (nextFirst == nextLast) {
             //resize items
-            System.out.println("resize");
             items = resize(items);
         }
     }
@@ -48,7 +47,6 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         if (nextLast == nextFirst) {
             //resize items
-            System.out.println("resize");
             items = resize(items);
         }
     }
@@ -96,7 +94,7 @@ public class ArrayDeque<T> implements Deque<T> {
                 System.out.print(items[i] + " ");
             }
         } else {
-            for (int i = nextFirst+1; i < nextLast; i++) {
+            for (int i = nextFirst + 1; i < nextLast; i++) {
                 System.out.print(items[i] + " ");
             }
         }
@@ -128,7 +126,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         nextLast--;
         if (nextLast == - 1) {
-            nextLast = items.length - 1;
+            nextLast = items.length -1;
         }
         T i = items[nextLast];
         items[nextLast] = null;
