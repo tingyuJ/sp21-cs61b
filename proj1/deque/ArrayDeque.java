@@ -51,20 +51,20 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    private T[] resize(T[] items) {
-        T[] newArr = (T[]) new Object[items.length * 2];
+    private T[] resize(T[] itemsArray) {
+        T[] newArr = (T[]) new Object[itemsArray.length * 2];
 
         if (nextFirst == 0) {
             //[F&L, 1, 2, 3]
-            System.arraycopy(items, 1, newArr, 1, size);
-        } else if (nextFirst == items.length - 1) {
+            System.arraycopy(itemsArray, 1, newArr, 1, size);
+        } else if (nextFirst == itemsArray.length - 1) {
             //[1, 2, 3, F&L]
-            System.arraycopy(items, 0, newArr, 1, size);
+            System.arraycopy(itemsArray, 0, newArr, 1, size);
         } else {
             //[ 3, F&L, 1, 2]
-            int rightSide = items.length - 1 - nextFirst;
-            System.arraycopy(items, nextFirst + 1, newArr, 1, rightSide);
-            System.arraycopy(items, 0, newArr, rightSide + 1, size - rightSide);
+            int rightSide = itemsArray.length - 1 - nextFirst;
+            System.arraycopy(itemsArray, nextFirst + 1, newArr, 1, rightSide);
+            System.arraycopy(itemsArray, 0, newArr, rightSide + 1, size - rightSide);
         }
         nextFirst = 0;
         nextLast = size + 1;
@@ -125,8 +125,8 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
         nextLast--;
-        if (nextLast == - 1) {
-            nextLast = items.length -1;
+        if (nextLast == -1) {
+            nextLast = items.length - 1;
         }
         T i = items[nextLast];
         items[nextLast] = null;
@@ -137,17 +137,17 @@ public class ArrayDeque<T> implements Deque<T> {
         return i;
     }
 
-    private T[] downsize(T[] items) {
-        T[] newArr = (T[]) new Object[items.length / 2];
+    private T[] downsize(T[] itemsArray) {
+        T[] newArr = (T[]) new Object[itemsArray.length / 2];
 
         if (nextLast > nextFirst) {
             //[ , , , F, 1, 2, 3, L, , ]
-            System.arraycopy(items, nextFirst + 1, newArr, 1, size);
+            System.arraycopy(itemsArray, nextFirst + 1, newArr, 1, size);
         } else {
             //[ 2, 3, L, , , , , , F, 1]
-            int rightSide = items.length - 1 - nextFirst;
-            System.arraycopy(items, nextFirst + 1, newArr, 1, rightSide);
-            System.arraycopy(items, 0, newArr, rightSide + 1, size - rightSide);
+            int rightSide = itemsArray.length - 1 - nextFirst;
+            System.arraycopy(itemsArray, nextFirst + 1, newArr, 1, rightSide);
+            System.arraycopy(itemsArray, 0, newArr, rightSide + 1, size - rightSide);
         }
         nextFirst = 0;
         nextLast = size + 1;
@@ -194,40 +194,41 @@ public class ArrayDeque<T> implements Deque<T> {
         if (o == null) {
             return false;
         }
-        if (o == this) {
-            return true;
-        }
+//        if (o == this) {
+//            return true;
+//        }
         if (!(o instanceof ArrayDeque)) {
             return false;
         }
-        ArrayDeque<?> ad = (ArrayDeque<?>) o;
+        ArrayDeque ad = (ArrayDeque) o;
         if (ad.size() != size) {
             return false;
         }
         for (int i = 0; i < size; i++) {
-            if (ad.get(i) != get(i)) {
+            if (!ad.get(i).equals(get(i))){
+//            if (ad.get(i) != get(i)) {
                 return false;
             }
         }
         return true;
     }
 
-    public static void main(String[] args) {
-        ArrayDeque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 1000; i++) {
-            ad.addLast(i);
-        }
-        for (int i = 0; i < 980; i++) {
-            ad.removeLast();
-        }
-        var s = ad.size();
-        var e = ad.isEmpty();
-        ad.printDeque();
-
-        var copy = new ArrayDeque<Integer>(ad);
-        for (int i = 0; i < 10; i++) {
-            copy.removeLast();
-        }
+//    public static void main(String[] args) {
+//        ArrayDeque<Integer> ad = new ArrayDeque<>();
+//        for (int i = 0; i < 1000; i++) {
+//            ad.addLast(i);
+//        }
+//        for (int i = 0; i < 980; i++) {
+//            ad.removeLast();
+//        }
+//        var s = ad.size();
+//        var e = ad.isEmpty();
+//        ad.printDeque();
+//
+//        var copy = new ArrayDeque<Integer>(ad);
+//        for (int i = 0; i < 10; i++) {
+//            copy.removeLast();
+//        }
 
         /*
         var a = ad.isEmpty();
@@ -275,5 +276,5 @@ public class ArrayDeque<T> implements Deque<T> {
         var e = ad.isEmpty();
          */
 
-    }
+//    }
 }

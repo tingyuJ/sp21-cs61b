@@ -29,7 +29,8 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return max(comparator);
     }
 
-    //The autograder said this methods should be removed or made private but can't make it private so...
+    //The autograder said this methods should be removed or made private
+    // but can't make it private so...
 //    @Override
 //    public boolean equals(Object o) {
 //        if (o == null) {

@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T> {
-    public class Node {
+    private class Node {
         private Node prev;
         private T value;
         private Node next;
@@ -139,7 +139,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
         public boolean hasNext() {
-            return p == sentF;
+            return p != sentB;
         }
 
         public T next() {
@@ -148,6 +148,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             return item;
         }
     }
+
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
@@ -157,44 +158,47 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (o == null) {
             return false;
         }
-        if (o == this) {
-            return true;
-        }
+//        if (o == this) {
+//            return true;
+//        }
         if (!(o instanceof LinkedListDeque)) {
             return false;
         }
-        LinkedListDeque<?> lld = (LinkedListDeque<?>) o;
+        LinkedListDeque lld = (LinkedListDeque) o;
         if (lld.size() != size) {
             return false;
         }
+
         for (int i = 0; i < size; i++) {
-            if (lld.get(i) != get(i)) {
+
+            if (!lld.get(i).equals(get(i))){
+//            if (lld.get(i) != get(i)) {
                 return false;
             }
         }
         return true;
     }
 
-    public static void main(String[] args) {
-        LinkedListDeque lld = new LinkedListDeque();
-        var nf = lld.removeFirst();
-        var nl = lld.removeLast();
-        System.out.println(lld.isEmpty());
-        System.out.println(lld.size());
-        lld.addFirst(1);
-        lld.printDeque();
-        lld.addLast(2);
-        lld.printDeque();
-        lld.addLast(3);
-        lld.printDeque();
-        lld.addFirst(0);
-        lld.printDeque();
-        var zero = lld.get(0);
-        var two = lld.get(2);
-        var three = lld.get(3);
-
-        System.out.println(lld.isEmpty());
-        System.out.println(lld.size());
-
-    }
+//    public static void main(String[] args) {
+//        LinkedListDeque lld = new LinkedListDeque();
+//        var nf = lld.removeFirst();
+//        var nl = lld.removeLast();
+//        System.out.println(lld.isEmpty());
+//        System.out.println(lld.size());
+//        lld.addFirst(1);
+//        lld.printDeque();
+//        lld.addLast(2);
+//        lld.printDeque();
+//        lld.addLast(3);
+//        lld.printDeque();
+//        lld.addFirst(0);
+//        lld.printDeque();
+//        var zero = lld.get(0);
+//        var two = lld.get(2);
+//        var three = lld.get(3);
+//
+//        System.out.println(lld.isEmpty());
+//        System.out.println(lld.size());
+//
+//    }
 }
