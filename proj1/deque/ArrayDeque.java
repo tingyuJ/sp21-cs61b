@@ -200,34 +200,49 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof ArrayDeque)) {
-            return false;
-        }
-        ArrayDeque ad = (ArrayDeque) o;
-        if (ad.size() != size) {
-            return false;
-        }
-        for (int i = 0; i < size; i++) {
-            if (!ad.get(i).equals(get(i))) {
-//            if (ad.get(i) != get(i)) {
+        if (o instanceof ArrayDeque) {
+            ArrayDeque ad = (ArrayDeque) o;
+            if (ad.size() != size) {
                 return false;
             }
+            for (int i = 0; i < size; i++) {
+                if (!ad.get(i).equals(get(i))) {
+//            if (ad.get(i) != get(i)) {
+                    return false;
+                }
+            }
+        } else if (o instanceof LinkedListDeque) {
+            LinkedListDeque lld = (LinkedListDeque) o;
+            if (lld.size() != size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+                if (!lld.get(i).equals(get(i))) {
+//            if (lld.get(i) != get(i)) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
         }
         return true;
     }
 
-//    public static void main(String[] args) {
-//        ArrayDeque<Integer> ad = new ArrayDeque<>();
-//        for (int i = 0; i < 1000; i++) {
-//            ad.addLast(i);
-//        }
+    public static void main(String[] args) {
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+        LinkedListDeque lld = new LinkedListDeque();
+        for (int i = 0; i < 1000; i++) {
+            ad.addLast(i);
+            lld.addLast(i);
+        }
+        System.out.println(ad.equals(lld));
 //        for (int i = 0; i < 980; i++) {
 //            ad.removeLast();
 //        }
 //        var s = ad.size();
 //        var e = ad.isEmpty();
 //        ad.printDeque();
-//
+
 //        var copy = new ArrayDeque<Integer>(ad);
 //        for (int i = 0; i < 10; i++) {
 //            copy.removeLast();
@@ -279,5 +294,5 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         var e = ad.isEmpty();
          */
 
-//    }
+    }
 }

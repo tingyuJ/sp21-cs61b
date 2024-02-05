@@ -107,7 +107,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T get(int index) {
-        if (index > size - 1) {
+        if (index < 0 || index > size - 1) {
             return null;
         }
         Node cur = sentF.next;
@@ -164,34 +164,46 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof LinkedListDeque)) {
-            return false;
-        }
-        LinkedListDeque lld = (LinkedListDeque) o;
-        if (lld.size() != size) {
-            return false;
-        }
-
-        for (int i = 0; i < size; i++) {
-
-            if (!lld.get(i).equals(get(i))) {
-//            if (lld.get(i) != get(i)) {
+        if (o instanceof LinkedListDeque) {
+            LinkedListDeque lld = (LinkedListDeque) o;
+            if (lld.size() != size) {
                 return false;
             }
+            for (int i = 0; i < size; i++) {
+                if (!lld.get(i).equals(get(i))) {
+//            if (lld.get(i) != get(i)) {
+                    return false;
+                }
+            }
+        } else if (o instanceof ArrayDeque) {
+            ArrayDeque ad = (ArrayDeque) o;
+            if (ad.size() != size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+
+                if (!ad.get(i).equals(get(i))) {
+//            if (ad.get(i) != get(i)) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
         }
         return true;
     }
 
-//    public static void main(String[] args) {
-//        LinkedListDeque lld = new LinkedListDeque();
+    public static void main(String[] args) {
+        LinkedListDeque lld = new LinkedListDeque();
+        ArrayDeque lld1 = new ArrayDeque();
 //        var nf = lld.removeFirst();
 //        var nl = lld.removeLast();
 //        System.out.println(lld.isEmpty());
 //        System.out.println(lld.size());
-//        lld.addFirst(1);
-//        lld.printDeque();
-//        lld.addLast(2);
-//        lld.printDeque();
+        lld.addFirst(1);
+        lld.printDeque();
+        lld.addLast(3);
+        lld.printDeque();
 //        lld.addLast(3);
 //        lld.printDeque();
 //        lld.addFirst(0);
@@ -203,5 +215,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 //        System.out.println(lld.isEmpty());
 //        System.out.println(lld.size());
 //
-//    }
+        lld1.addFirst(1);
+        lld1.printDeque();
+        lld1.addLast(3);
+        lld1.printDeque();
+        System.out.println(lld.equals(lld1));
+    }
 }
