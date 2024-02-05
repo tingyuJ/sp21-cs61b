@@ -201,7 +201,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return true;
         }
         if (o instanceof ArrayDeque) {
-            ArrayDeque ad = (ArrayDeque) o;
+            ArrayDeque<T> ad = (ArrayDeque<T>) o;
             if (ad.size() != size) {
                 return false;
             }
@@ -212,7 +212,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
                 }
             }
         } else if (o instanceof LinkedListDeque) {
-            LinkedListDeque lld = (LinkedListDeque) o;
+            LinkedListDeque<T> lld = (LinkedListDeque<T>) o;
             if (lld.size() != size) {
                 return false;
             }
@@ -228,14 +228,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return true;
     }
 
-    public static void main(String[] args) {
-        ArrayDeque<Integer> ad = new ArrayDeque<>();
-        LinkedListDeque lld = new LinkedListDeque();
-        for (int i = 0; i < 1000; i++) {
-            ad.addLast(i);
-            lld.addLast(i);
-        }
-        System.out.println(ad.equals(lld));
+//    public static void main(String[] args) {
+//        ArrayDeque<Integer> ad = new ArrayDeque<>();
+//        LinkedListDeque lld = new LinkedListDeque();
+//        for (int i = 0; i < 1000; i++) {
+//            ad.addLast(i);
+//            lld.addLast(i);
+//        }
+//        System.out.println(ad.equals(lld));
 //        for (int i = 0; i < 980; i++) {
 //            ad.removeLast();
 //        }
@@ -294,5 +294,5 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         var e = ad.isEmpty();
          */
 
-    }
+//    }
 }

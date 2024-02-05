@@ -165,7 +165,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return true;
         }
         if (o instanceof LinkedListDeque) {
-            LinkedListDeque lld = (LinkedListDeque) o;
+            LinkedListDeque<T> lld = (LinkedListDeque<T>) o;
             if (lld.size() != size) {
                 return false;
             }
@@ -176,7 +176,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
                 }
             }
         } else if (o instanceof ArrayDeque) {
-            ArrayDeque ad = (ArrayDeque) o;
+            ArrayDeque<T> ad = (ArrayDeque<T>) o;
             if (ad.size() != size) {
                 return false;
             }
@@ -193,17 +193,17 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return true;
     }
 
-    public static void main(String[] args) {
-        LinkedListDeque lld = new LinkedListDeque();
-        ArrayDeque lld1 = new ArrayDeque();
+//    public static void main(String[] args) {
+//        LinkedListDeque lld = new LinkedListDeque();
+//        ArrayDeque lld1 = new ArrayDeque();
 //        var nf = lld.removeFirst();
 //        var nl = lld.removeLast();
 //        System.out.println(lld.isEmpty());
 //        System.out.println(lld.size());
-        lld.addFirst(1);
-        lld.printDeque();
-        lld.addLast(3);
-        lld.printDeque();
+//        lld.addFirst(1);
+//        lld.printDeque();
+//        lld.addLast(3);
+//        lld.printDeque();
 //        lld.addLast(3);
 //        lld.printDeque();
 //        lld.addFirst(0);
@@ -215,10 +215,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 //        System.out.println(lld.isEmpty());
 //        System.out.println(lld.size());
 //
-        lld1.addFirst(1);
-        lld1.printDeque();
-        lld1.addLast(3);
-        lld1.printDeque();
-        System.out.println(lld.equals(lld1));
-    }
+//        lld1.addFirst(1);
+//        lld1.printDeque();
+//        lld1.addLast(3);
+//        lld1.printDeque();
+//        System.out.println(lld.equals(lld1));
+//    }
 }
